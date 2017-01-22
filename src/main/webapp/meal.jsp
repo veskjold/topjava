@@ -43,6 +43,10 @@
             <dt>Calories:</dt>
             <dd><input type="number" value="${meal.calories}" name="calories"></dd>
         </dl>
+        <dl>
+            <dt>userId:</dt>
+            <dd><input type="userId" value="1" name="userId"></dd>
+        </dl>
         <button type="submit">Save</button>
         <button onclick="window.history.back()">Cancel</button>
     </form>
