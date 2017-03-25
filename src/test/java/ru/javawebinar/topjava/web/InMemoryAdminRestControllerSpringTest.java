@@ -22,7 +22,7 @@ import static ru.javawebinar.topjava.UserTestData.USER;
  * GKislin
  * 13.03.2015.
  */
-@ContextConfiguration("classpath:spring/spring-app.xml")
+@ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/mock.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class InMemoryAdminRestControllerSpringTest {
 
@@ -41,7 +41,7 @@ public class InMemoryAdminRestControllerSpringTest {
 
     @Test
     public void testDelete() throws Exception {
-        controller.delete(UserTestData.USER_ID);
+        controller.delete(100035);
         Collection<User> users = controller.getAll();
         Assert.assertEquals(users.size(), 1);
         Assert.assertEquals(users.iterator().next(), ADMIN);

@@ -13,6 +13,7 @@ import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.checkIdConsistent;
@@ -41,10 +42,10 @@ public class MealRestController {
         service.delete(id, userId);
     }
 
-    public List<MealWithExceed> getAll() {
+    public List<Meal> getAll() {
         int userId = AuthorizedUser.id();
         LOG.info("getAll for User {}", userId);
-        return MealsUtil.getWithExceeded(service.getAll(userId), AuthorizedUser.getCaloriesPerDay());
+        return (List<Meal>) service.getAll(1);
     }
 
     public Meal create(Meal meal) {

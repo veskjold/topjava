@@ -21,7 +21,7 @@ public class InMemoryAdminRestControllerTest {
 
     @BeforeClass
     public static void beforeClass() {
-        appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+        appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/mock.xml");
         System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
         controller = appCtx.getBean(AdminRestController.class);
     }
@@ -42,7 +42,7 @@ public class InMemoryAdminRestControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        controller.delete(UserTestData.USER_ID);
+        controller.delete(100031);
         Collection<User> users = controller.getAll();
         Assert.assertEquals(users.size(), 1);
         Assert.assertEquals(users.iterator().next(), ADMIN);
