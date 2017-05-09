@@ -1,7 +1,9 @@
 package ru.javawebinar.topjava.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,18 +12,33 @@ import java.time.LocalTime;
  * GKislin
  * 11.01.2015.
  */
+//@NamedQueries({
+////        @NamedQuery(name = Meal.DELETEMEAL, query = "DELETE m FROM Meal m WHERE m.id=:id and m.user_id=:user_id")
+//        @NamedQuery(name = Meal.DELETEMEAL, query = "DELETE FROM Meal m WHERE m.id=:id")
+//})
+@Entity
+@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"id", "user_id","date_time"}, name = "meals_unique_user_datetime_idx")})
+
 public class Meal extends BaseEntity {
 
+    @Column (name = "date_time", nullable = false, unique = true)
     private LocalDateTime dateTime;
 
+    @Column(name = "description")
+    @NotEmpty
+    @Length(max = 500)
     private String description;
 
+    @Column(name = "calories")
     private int calories;
+
+//    @Column(name = "user_id", updatable = false)
+//    private int user_id;
 
     public Meal() {
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     public Meal(LocalDateTime dateTime, String description, int calories) {
@@ -86,4 +103,11 @@ public class Meal extends BaseEntity {
                 '}';
     }
 
+/*    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }*/
 }
